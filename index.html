@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unterricht Tool 64</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <style>
+        :root {
+            --accent-color: #22d3ee; /* Bright Cyan */
+            --accent-glow: rgba(34, 211, 238, 0.4);
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: transparent;
+            color: #f0f0f0;
+            image-rendering: pixelated;
+        }
+        
+        #solid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0a0a0a;
+            z-index: -3;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 50%, transparent 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .scroll-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        * { border-radius: 0 !important; }
+        
+        .text-glow {
+            text-shadow: 0 0 4px var(--accent-color);
+        }
+
+        #qr-code-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+        }
+
+        /* For Hangman SVG Animations */
+        @keyframes explosion-animation {
+            0% { transform: scale(0.5); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .exploding {
+            animation: explosion-animation 0.3s ease-out forwards;
+        }
+        
+        @keyframes defeat-shake-fall { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 10% { transform: translate(-2px, 0) rotate(-5deg); } 20% { transform: translate(2px, 0) rotate(5deg); } 30% { transform: translate(-2px, 0) rotate(-5deg); } 40% { transform: translate(2px, 0) rotate(5deg); } 50% { transform: translate(0, 0) rotate(0); opacity: 1; } 100% { transform: translate(0, 50px) rotate(20deg); opacity: 0; } }
+        .is-defeated { animation: defeat-shake-fall 1.5s ease-in-out forwards; transform-origin: 70px 35px; }
+        
+        @keyframes flip-in { 0% { transform: rotateX(90deg); opacity: 0; } 100% { transform: rotateX(0deg); opacity: 1; } }
+        .letter-reveal { animation: flip-in 0.5s ease; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.2.1/",
+    "vite": "https://aistudiocdn.com/vite@^7.1.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.2"
+  }
+}
+</script>
+</head>
+<body class="h-full">
+    <div id="solid-background"></div>
+    <canvas id="starfield"></canvas>
+    <div class="scanline-overlay"></div>
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Unterricht Tool 64",
+  "description": "A retro-themed, pixel-art web application for teachers, featuring tools for student grouping, random selection, and an interactive Hangman game with single-player and team modes. Includes a QR-code feature for students or teachers to remotely submit words for the game.",
+  "requestFramePermissions": []
+}
